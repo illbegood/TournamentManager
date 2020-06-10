@@ -28,8 +28,10 @@ namespace TournamentManager
             try
             {
                 string dir = Directory.GetCurrentDirectory();
-                //MessageBox.Show(dir);
-                conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+dir+@"\database.mdf;Integrated Security=True");
+                string s = Properties.Settings.Default.databaseConnectionString;
+                string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=" + dir + @"\database.mdf;Integrated Security=True";
+                //MessageBox.Show(s);
+                conn = new SqlConnection(s);
                 conn.Open();
             }
 
