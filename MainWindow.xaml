@@ -1,0 +1,145 @@
+﻿<Window x:Class="TournamentManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:local="clr-namespace:TournamentManager"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="TournamentManager" Height="600" Width="800" Loaded="Window_Loaded" Background="Orange">
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="Database">
+                <MenuItem Header="Games" Name="gamesMenuItem" Click="gamesMenuItem_Click"/>
+                <MenuItem Header="Players" Name="playersMenuItem" Click="playersMenuItem_Click"/>
+                <MenuItem Header="Teams" Name="teamsMenuItem" Click="teamsMenuItem_Click"/>
+                <MenuItem Header="Tournaments" Name="tournamentsMenuItem" Click="tournamentsMenuItem_Click"/>
+                <MenuItem Header="Matches" Name="matchesMenuItem" Click="matchesMenuItem_Click"/>
+                <MenuItem Header="Matches Formats" Name="matchesFormatsMenuItem" Click="matchesFormatsMenuItem_Click"/>
+                <MenuItem Header="Matches Categories" Name="matchesCategoriesMenuItem" Click="matchesCategoriesMenuItem_Click"/>
+                <MenuItem Header="Players-Teams" Name="playersTeamsMenuItem" Click="playersTeamsMenuItem_Click"/>
+                <MenuItem Header="Tournaments-Teams" Name="tournamentsTeamsMenuItem" Click="tournamentsTeamsMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="Add">
+                <MenuItem Header="Game"/>
+                <MenuItem Header="Player" Name="addPlayer" Click="addPlayer_Click"/>
+                <MenuItem Header="Team"/>
+                <MenuItem Header="Tournament"/>
+                <MenuItem Header="Player to Team"/>
+                <MenuItem Header="Team to Tournament"/>
+            </MenuItem>
+            <MenuItem Header="Remove">
+                <MenuItem Header="Game"/>
+                <MenuItem Header="Player"/>
+                <MenuItem Header="Team"/>
+                <MenuItem Header="Tournament"/>
+                <MenuItem Header="Player From Team"/>
+                <MenuItem Header="Team to Tournament"/>
+            </MenuItem>
+            <MenuItem Header="Show">
+                <MenuItem Header="Players" Name="ShowPlayers" Click="ShowPlayers_Click"/>
+                <MenuItem Header="Teams" Name="ShowTeams" Click="ShowTeams_Click"/>
+                <MenuItem Header="Tournaments" Name="ShowTournaments" Click="ShowTournaments_Click"/>
+            </MenuItem>
+        </Menu>
+        <Grid Name="playersGrid" HorizontalAlignment="Left" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">Игроки</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">Команды</TextBlock>
+            <DataGrid MouseDown="playersLeftDataGrid_MouseDown" Grid.Row="1" x:Name="playersLeftDataGrid" Grid.Column="0" AutoGenerateColumns="False" IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Left">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=I, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="name" Binding="{Binding Path=S, Mode=OneTime}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="playersRightDataGrid" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Left">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=I, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="name" Binding="{Binding Path=S, Mode=OneTime}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Name="teamsGrid" HorizontalAlignment="Left" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">Команды</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">Игроки</TextBlock>
+            <DataGrid MouseDown="teamsLeftDataGrid_MouseDown" Grid.Row="1" Grid.Column="0" x:Name="teamsLeftDataGrid" AutoGenerateColumns="False" IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Left">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=I, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="name" Binding="{Binding Path=S, Mode=OneTime}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="teamsRightDataGrid" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Left">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=I, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="name" Binding="{Binding Path=S, Mode=OneTime}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Name="tournamentsGrid" HorizontalAlignment="Left" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">Турниры</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">Команды</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left">Матчи</TextBlock>
+            <DataGrid MouseDown="tournamentsLeftDataGrid_MouseDown" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" x:Name="tournamentsLeftDataGrid" AutoGenerateColumns="False" IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Left">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=O0, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="name" Binding="{Binding Path=O1, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="begin_date" Binding="{Binding Path=O2, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="end_date" Binding="{Binding Path=O3, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="game_id" Binding="{Binding Path=O4, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="game_name" Binding="{Binding Path=O5, Mode=OneTime}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="tournamentsRightDataGrid" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" AutoGenerateColumns="False" IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Left">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=I, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="name" Binding="{Binding Path=S, Mode=OneTime}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" x:Name="matchesDataGrid" AutoGenerateColumns="False" IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Path=O0, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="team1score" Binding="{Binding Path=O1, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="team2score" Binding="{Binding Path=O2, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="team1_id" Binding="{Binding Path=O3, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="team1_name" Binding="{Binding Path=O4, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="team2_id" Binding="{Binding Path=O5, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="team2_name" Binding="{Binding Path=O6, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="match_format_id" Binding="{Binding Path=O7, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="match_format_name" Binding="{Binding Path=O8, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="match_category_id" Binding="{Binding Path=O9, Mode=OneTime}"/>
+                    <DataGridTextColumn Header="match_category_id" Binding="{Binding Path=O10, Mode=OneTime}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Name="bracketButton" HorizontalAlignment="Center" Grid.Row="4"  Grid.Column="0" Grid.ColumnSpan="3" Click="bracketButton_Click">Создать сетку</Button>
+        </Grid>
+        <Grid Name="BracketGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"></Grid>
+    </StackPanel>
+</Window>
